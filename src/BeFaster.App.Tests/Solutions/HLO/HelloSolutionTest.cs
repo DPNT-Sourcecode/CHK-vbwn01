@@ -1,4 +1,4 @@
-﻿using BeFaster.App.Solutions.SUM;
+﻿using BeFaster.App.Solutions.HLO;
 using NUnit.Framework;
 
 namespace BeFaster.App.Tests.Solutions.HLO
@@ -9,7 +9,8 @@ namespace BeFaster.App.Tests.Solutions.HLO
         [TestCase("John", ExpectedResult = "Hello, John!")]
         public string ComputeSum(string friendName)
         {
-            return "Hello, " + friendName + "!";
+            return HelloSolution.Hello(friendName);
         }
     }
 }
+
