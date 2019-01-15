@@ -89,13 +89,16 @@ namespace BeFaster.App.Solutions.CHK
             {
                 List<SpecialOffer> specialOffers = ItemsList.Where(x => x.Sku == productAmount.Sku && x.SpecialOffers != null && x.SpecialOffers.Any()).FirstOrDefault()?.SpecialOffers.Where(s=>s.Type == SpecialOfferType.FreeItem).ToList();
 
-                if (specialOffer != null)
+                foreach(var specialOffer in specialOffers)
                 {
                     int numberOfOffers = productAmount.Amount / specialOffer.Amount;
                     for (int i = 0; i < numberOfOffers; i++)
                     {
-                        specialOffersInOrder.Add(specialOffer);
-                        productAmount.Amount -= specialOffer.Amount;
+                        var freeProductAmount = productAmounts.Where(p => p.Sku == specialOffer.FreeItemName).FirstOrDefault();
+                        if (freeProductAmount != null && freeProductAmount.Amount > 0)
+                        {
+                            freeProductAmount.Amount--;
+                        }
                     }
                 }
             }
@@ -117,5 +120,6 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 
