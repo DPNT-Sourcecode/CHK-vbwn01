@@ -7,6 +7,10 @@ namespace BeFaster.App.Solutions.CHK
 {
     public static class CheckoutSolution
     {
+        public static List<char> GroupOfItems = new List<char>() { 'S', 'T', 'X', 'Y', 'Z' };
+        public static int NumberOfGroupItemsToBuy = 3;
+        public static int PriceForGroupItems = 45;
+
         public static List<Item> ItemsList = InitItemsList();
 
         public static List<Item> InitItemsList()
@@ -30,8 +34,8 @@ namespace BeFaster.App.Solutions.CHK
                     new SpecialOffer(){Amount = 10, Price = 80, Type = SpecialOfferType.Discount} } },
                 new Item(){Sku = 'I', Price = 35, SpecialOffers = null},
                 new Item(){Sku = 'J', Price = 60, SpecialOffers = null},
-                new Item(){Sku = 'K', Price = 80, SpecialOffers = new List<SpecialOffer>(){
-                    new SpecialOffer(){Amount = 2, Price = 150, Type = SpecialOfferType.Discount} } },
+                new Item(){Sku = 'K', Price = 70, SpecialOffers = new List<SpecialOffer>(){
+                    new SpecialOffer(){Amount = 2, Price = 120, Type = SpecialOfferType.Discount} } },
                 new Item(){Sku = 'L', Price = 90, SpecialOffers = null},
                 new Item(){Sku = 'M', Price = 15, SpecialOffers = null},
                 new Item(){Sku = 'N', Price = 40, SpecialOffers = new List<SpecialOffer>(){
@@ -43,7 +47,7 @@ namespace BeFaster.App.Solutions.CHK
                     new SpecialOffer(){Amount = 3, Price = 80, Type = SpecialOfferType.Discount} } },
                 new Item(){Sku = 'R', Price = 50, SpecialOffers = new List<SpecialOffer>(){
                     new SpecialOffer(){Amount = 3, FreeItemName = 'Q', Type = SpecialOfferType.FreeItem} } },
-                new Item(){Sku = 'S', Price = 30, SpecialOffers = null},
+                new Item(){Sku = 'S', Price = 20, SpecialOffers = null},
                 new Item(){Sku = 'T', Price = 20, SpecialOffers = null},
                 new Item(){Sku = 'U', Price = 40, SpecialOffers = new List<SpecialOffer>(){
                     new SpecialOffer(){Amount = 4, FreeItemName = 'U', Type = SpecialOfferType.FreeItem} } },
@@ -51,9 +55,9 @@ namespace BeFaster.App.Solutions.CHK
                     new SpecialOffer(){Amount = 2, Price = 90, Type = SpecialOfferType.Discount},
                     new SpecialOffer(){Amount = 3, Price = 130, Type = SpecialOfferType.Discount} } },
                 new Item(){Sku = 'W', Price = 20, SpecialOffers = null},
-                new Item(){Sku = 'X', Price = 90, SpecialOffers = null},
-                new Item(){Sku = 'Y', Price = 10, SpecialOffers = null},
-                new Item(){Sku = 'Z', Price = 50, SpecialOffers = null}
+                new Item(){Sku = 'X', Price = 17, SpecialOffers = null},
+                new Item(){Sku = 'Y', Price = 20, SpecialOffers = null},
+                new Item(){Sku = 'Z', Price = 21, SpecialOffers = null}
             };
         }
 
@@ -157,3 +161,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
