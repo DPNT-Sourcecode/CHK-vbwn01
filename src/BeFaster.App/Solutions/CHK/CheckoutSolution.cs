@@ -21,7 +21,9 @@ namespace BeFaster.App.Solutions.CHK
                 new Item(){Sku = 'C', Price = 20, SpecialOffers = null},
                 new Item(){Sku = 'D', Price = 15, SpecialOffers = null},
                 new Item(){Sku = 'E', Price = 40, SpecialOffers = new List<SpecialOffer>(){
-                    new SpecialOffer(){Amount = 2, FreeItemName = 'B', Type = SpecialOfferType.FreeItem} } }
+                    new SpecialOffer(){Amount = 2, FreeItemName = 'B', Type = SpecialOfferType.FreeItem} } },
+                new Item(){Sku = 'F', Price = 10, SpecialOffers = new List<SpecialOffer>(){
+                    new SpecialOffer(){Amount = 3, FreeItemName = 'F', Type = SpecialOfferType.FreeItem} } }
             };
         }
 
@@ -125,3 +127,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
