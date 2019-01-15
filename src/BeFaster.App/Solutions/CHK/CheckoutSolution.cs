@@ -123,7 +123,7 @@ namespace BeFaster.App.Solutions.CHK
             //FreeItem
             foreach (var productAmount in productAmounts)
             {
-                List<SpecialOffer> specialOffers = ItemsList.Where(x => x.Sku == productAmount.Sku && x.SpecialOffers != null && x.SpecialOffers.Any()).FirstOrDefault()?.SpecialOffers.Where(s=>s.Type == SpecialOfferType.FreeItem).ToList();
+                List<SpecialOffer> specialOffers = ItemsList.Where(x => x.Sku == productAmount.Sku && x.SpecialOffers != null && x.SpecialOffers.Any()).FirstOrDefault()?.SpecialOffers.Where(s => s.Type == SpecialOfferType.FreeItem).ToList();
                 if (specialOffers != null)
                 {
                     foreach (var specialOffer in specialOffers)
@@ -157,8 +157,31 @@ namespace BeFaster.App.Solutions.CHK
                     }
                 }
             }
+            //GroupOfItems
+
+            int sum = productAmounts.Where(x => GroupOfItems.Contains(x.Sku)).Sum(s => s.Amount);
+            int numberOfDiscounts = sum / NumberOfGroupItemsToBuy;
+            for (int i = 0; i < numberOfDiscounts; i++)
+            {
+                specialOffersInOrder.Add(new SpecialOffer() { Price = PriceForGroupItems });
+                for (int t = 0; t < NumberOfGroupItemsToBuy; t++)
+                {
+                    var groupItems = productAmounts.Where(x => GroupOfItems.Contains(x.Sku)).OrderByDescending(p => p.Price).ToList();
+                    var mostExpensive = groupItems.First();
+                    if (mostExpensive.Amount > 1)
+                    {
+                        productAmounts.Where(x => x.Sku == mostExpensive.Sku).First().Amount--;
+                    }
+                    else
+                    {
+                        productAmounts.Remove(mostExpensive);
+                    }
+                }
+            }
+
             return specialOffersInOrder;
         }
     }
 }
+
 
