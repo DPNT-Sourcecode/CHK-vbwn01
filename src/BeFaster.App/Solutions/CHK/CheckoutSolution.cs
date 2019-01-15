@@ -28,10 +28,25 @@ namespace BeFaster.App.Solutions.CHK
             }
 
             List<ProductAmountOrdered> orderedProductAmounts = GetOrderedProductAmounts(skus);
-            List<SpecialOffer> specialOffersInOrder = 
+            List<SpecialOffer> specialOffersInOrder = GetSpecialOffersInOrder(orderedProductAmounts);
 
+            int fullPrice = GetFullPrice(orderedProductAmounts, specialOffersInOrder);
 
-            return -1;
+            return fullPrice;
+        }
+
+        public static int GetFullPrice(List<ProductAmountOrdered> orderedProductAmounts, List<SpecialOffer> specialOffersInOrder)
+        {
+            int fullPrice = 0;
+            foreach(var product in orderedProductAmounts)
+            {
+                fullPrice += product.Amount * product.Price;
+            }
+            foreach (var specialOffer in specialOffersInOrder)
+            {
+                fullPrice += specialOffer.Price;
+            }
+            return fullPrice;
         }
 
         public static bool IsInputValid(string skus)
@@ -86,4 +101,5 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
