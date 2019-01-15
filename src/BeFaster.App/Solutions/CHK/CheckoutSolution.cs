@@ -6,7 +6,16 @@ namespace BeFaster.App.Solutions.CHK
     {
         public static int Checkout(string skus)
         {
-            throw new SolutionNotImplementedException();
+            if (!IsInputValid(skus))
+            {
+                return -1;
+            }
+        }
+
+        public static bool IsInputValid(string skus)
+        {
+            return true;
         }
     }
 }
+
