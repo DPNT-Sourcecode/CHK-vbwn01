@@ -11,7 +11,6 @@ namespace BeFaster.App.Tests.Solutions.CHK
     [TestFixture]
     public class ChekoutSolutionTest
     {
-        [TestCase("")]
         [TestCase("!")]
         [TestCase(" ")]
         [TestCase("2")]
@@ -22,6 +21,7 @@ namespace BeFaster.App.Tests.Solutions.CHK
             Assert.IsFalse(isValid, $"{skus} should not be valid");
         }
 
+        [TestCase("", ExpectedResult = 0)]
         [TestCase("AA", ExpectedResult = 100)]
         [TestCase("AAA", ExpectedResult = 130)]
         [TestCase("AAAA", ExpectedResult = 180)]
@@ -34,6 +34,7 @@ namespace BeFaster.App.Tests.Solutions.CHK
         }
     }
 }
+
 
 
 
