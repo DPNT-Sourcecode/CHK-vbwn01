@@ -22,11 +22,16 @@ namespace BeFaster.App.Tests.Solutions.CHK
             Assert.IsFalse(isValid, $"{skus} should not be valid");
         }
 
-        [TestCase("AAA", ExpectedResult = 150)]
+        [TestCase("AA", ExpectedResult = 100)]
+        [TestCase("AAA", ExpectedResult = 130)]
+        [TestCase("AAAA", ExpectedResult = 180)]
+        [TestCase("B", ExpectedResult = 30)]
+        [TestCase("BB", ExpectedResult = 45)]
         public int CheckoutTest(string skus)
         {
             return CheckoutSolution.Checkout(skus);
         }
     }
 }
+
 
