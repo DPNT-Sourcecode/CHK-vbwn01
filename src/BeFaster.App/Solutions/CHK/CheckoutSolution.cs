@@ -105,8 +105,8 @@ namespace BeFaster.App.Solutions.CHK
             //Discount
             foreach (var productAmount in productAmounts)
             {
-                SpecialOffer specialOffer = ItemsList.Where(x => x.Sku == productAmount.Sku && x.SpecialOffer != null).FirstOrDefault()?.SpecialOffer;
-                if (specialOffer != null)
+                List<SpecialOffer> specialOffers = ItemsList.Where(x => x.Sku == productAmount.Sku && x.SpecialOffers != null && x.SpecialOffers.Any()).FirstOrDefault()?.SpecialOffers.Where(s => s.Type == SpecialOfferType.Discount).ToList();
+                foreach(var specialOffer in specialOffers.OrderByDescending(x=>x.Amount))
                 {
                     int numberOfOffers = productAmount.Amount / specialOffer.Amount;
                     for (int i = 0; i < numberOfOffers; i++)
@@ -120,6 +120,7 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 
 
