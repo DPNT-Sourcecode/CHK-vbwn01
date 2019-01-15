@@ -21,5 +21,12 @@ namespace BeFaster.App.Tests.Solutions.CHK
             bool isValid = CheckoutSolution.IsInputValid(skus);
             Assert.IsFalse(isValid, $"{skus} should not be valid");
         }
+
+        [TestCase("AAA", ExpectedResult = 150)]
+        public int CheckoutTest(string skus)
+        {
+            return CheckoutSolution.Checkout(skus);
+        }
     }
 }
+
