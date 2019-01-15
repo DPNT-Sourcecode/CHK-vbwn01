@@ -14,7 +14,6 @@ namespace BeFaster.App.Tests.Solutions.CHK
         [TestCase("!")]
         [TestCase(" ")]
         [TestCase("2")]
-        [TestCase("J")]
         public void ReturnFalseGivenStringContainsInvalidCharacters(string skus)
         {
             bool isValid = CheckoutSolution.IsInputValid(skus);
@@ -43,5 +42,6 @@ namespace BeFaster.App.Tests.Solutions.CHK
         }
     }
 }
+
 
 
