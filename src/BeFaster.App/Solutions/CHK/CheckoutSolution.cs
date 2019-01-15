@@ -1,4 +1,5 @@
 ﻿using BeFaster.Runner.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,6 +31,11 @@ namespace BeFaster.App.Solutions.CHK
 
         public static bool IsInputValid(string skus)
         {
+            if(String.IsNullOrWhiteSpace(skus))
+            {
+                return false;
+            }
+
             foreach(var sku in skus.Distinct())
             {
                 bool isCharValid = ItemsList.Where(x => x.Sku == sku).FirstOrDefault() != null;
@@ -42,3 +48,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
