@@ -13,10 +13,15 @@ namespace BeFaster.App.Solutions.CHK
         {
             return new List<Item>()
             {
-                new Item(){Sku = 'A', Price = 50, SpecialOffer = new SpecialOffer(){Amount = 3, Price = 130}},
-                new Item(){Sku = 'B', Price = 30, SpecialOffer = new SpecialOffer(){Amount = 2, Price = 45}},
-                new Item(){Sku = 'C', Price = 20, SpecialOffer = null},
-                new Item(){Sku = 'D', Price = 15, SpecialOffer = null}
+                new Item(){Sku = 'A', Price = 50, SpecialOffers = new List<SpecialOffer>(){
+                    new SpecialOffer(){Amount = 3, Price = 130, Type = SpecialOfferType.Discount},
+                    new SpecialOffer(){Amount = 5, Price = 200, Type = SpecialOfferType.Discount} } },
+                new Item(){Sku = 'B', Price = 30, SpecialOffers = new List<SpecialOffer>(){
+                    new SpecialOffer(){Amount = 2, Price = 45, Type = SpecialOfferType.Discount} } },
+                new Item(){Sku = 'C', Price = 20, SpecialOffers = null},
+                new Item(){Sku = 'D', Price = 15, SpecialOffers = null},
+                new Item(){Sku = 'E', Price = 40, SpecialOffers = new List<SpecialOffer>(){
+                    new SpecialOffer(){Amount = 2, FreeItemName = 'B', Type = SpecialOfferType.FreeItem} } }
             };
         }
 
@@ -38,7 +43,7 @@ namespace BeFaster.App.Solutions.CHK
         public static int GetFullPrice(List<ProductAmountOrdered> orderedProductAmounts, List<SpecialOffer> specialOffersInOrder)
         {
             int fullPrice = 0;
-            foreach(var product in orderedProductAmounts)
+            foreach (var product in orderedProductAmounts)
             {
                 fullPrice += product.Amount * product.Price;
             }
@@ -51,7 +56,7 @@ namespace BeFaster.App.Solutions.CHK
 
         public static bool IsInputValid(string skus)
         {
-            foreach(var sku in skus.Distinct())
+            foreach (var sku in skus.Distinct())
             {
                 bool isCharValid = ItemsList.Where(x => x.Sku == sku).FirstOrDefault() != null;
                 if (!isCharValid)
@@ -65,10 +70,10 @@ namespace BeFaster.App.Solutions.CHK
         public static List<ProductAmountOrdered> GetOrderedProductAmounts(string skus)
         {
             List<ProductAmountOrdered> orderedProductAmounts = new List<ProductAmountOrdered>();
-            foreach(var item in ItemsList)
+            foreach (var item in ItemsList)
             {
                 int amount = skus.Where(c => c == item.Sku).ToArray().Length;
-                if(amount > 0)
+                if (amount > 0)
                 {
                     orderedProductAmounts.Add(new ProductAmountOrdered() { Sku = item.Sku, Amount = amount, Price = item.Price });
                 }
@@ -76,16 +81,16 @@ namespace BeFaster.App.Solutions.CHK
             return orderedProductAmounts;
         }
 
-        public static List<SpecialOffer> GetSpecialOffersInOrder (List<ProductAmountOrdered> productAmounts)
+        public static List<SpecialOffer> GetSpecialOffersInOrder(List<ProductAmountOrdered> productAmounts)
         {
             List<SpecialOffer> specialOffers = new List<SpecialOffer>();
-            foreach(var productAmount in productAmounts)
+            foreach (var productAmount in productAmounts)
             {
                 SpecialOffer specialOffer = ItemsList.Where(x => x.Sku == productAmount.Sku && x.SpecialOffer != null).FirstOrDefault()?.SpecialOffer;
-                if(specialOffer != null)
+                if (specialOffer != null)
                 {
                     int numberOfOffers = productAmount.Amount / specialOffer.Amount;
-                    for(int i=0; i< numberOfOffers; i++)
+                    for (int i = 0; i < numberOfOffers; i++)
                     {
                         specialOffers.Add(specialOffer);
                         productAmount.Amount -= specialOffer.Amount;
@@ -96,3 +101,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
