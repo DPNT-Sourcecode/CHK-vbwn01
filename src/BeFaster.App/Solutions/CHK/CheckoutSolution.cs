@@ -88,16 +88,18 @@ namespace BeFaster.App.Solutions.CHK
             foreach (var productAmount in productAmounts)
             {
                 List<SpecialOffer> specialOffers = ItemsList.Where(x => x.Sku == productAmount.Sku && x.SpecialOffers != null && x.SpecialOffers.Any()).FirstOrDefault()?.SpecialOffers.Where(s=>s.Type == SpecialOfferType.FreeItem).ToList();
-
-                foreach(var specialOffer in specialOffers)
+                if (specialOffers != null)
                 {
-                    int numberOfOffers = productAmount.Amount / specialOffer.Amount;
-                    for (int i = 0; i < numberOfOffers; i++)
+                    foreach (var specialOffer in specialOffers)
                     {
-                        var freeProductAmount = productAmounts.Where(p => p.Sku == specialOffer.FreeItemName).FirstOrDefault();
-                        if (freeProductAmount != null && freeProductAmount.Amount > 0)
+                        int numberOfOffers = productAmount.Amount / specialOffer.Amount;
+                        for (int i = 0; i < numberOfOffers; i++)
                         {
-                            freeProductAmount.Amount--;
+                            var freeProductAmount = productAmounts.Where(p => p.Sku == specialOffer.FreeItemName).FirstOrDefault();
+                            if (freeProductAmount != null && freeProductAmount.Amount > 0)
+                            {
+                                freeProductAmount.Amount--;
+                            }
                         }
                     }
                 }
@@ -106,13 +108,16 @@ namespace BeFaster.App.Solutions.CHK
             foreach (var productAmount in productAmounts)
             {
                 List<SpecialOffer> specialOffers = ItemsList.Where(x => x.Sku == productAmount.Sku && x.SpecialOffers != null && x.SpecialOffers.Any()).FirstOrDefault()?.SpecialOffers.Where(s => s.Type == SpecialOfferType.Discount).ToList();
-                foreach(var specialOffer in specialOffers.OrderByDescending(x=>x.Amount))
+                if (specialOffers != null)
                 {
-                    int numberOfOffers = productAmount.Amount / specialOffer.Amount;
-                    for (int i = 0; i < numberOfOffers; i++)
+                    foreach (var specialOffer in specialOffers.OrderByDescending(x => x.Amount))
                     {
-                        specialOffersInOrder.Add(specialOffer);
-                        productAmount.Amount -= specialOffer.Amount;
+                        int numberOfOffers = productAmount.Amount / specialOffer.Amount;
+                        for (int i = 0; i < numberOfOffers; i++)
+                        {
+                            specialOffersInOrder.Add(specialOffer);
+                            productAmount.Amount -= specialOffer.Amount;
+                        }
                     }
                 }
             }
@@ -120,3 +125,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
