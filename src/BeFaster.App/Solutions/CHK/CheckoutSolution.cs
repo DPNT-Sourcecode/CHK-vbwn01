@@ -13,10 +13,10 @@ namespace BeFaster.App.Solutions.CHK
         {
             return new List<Item>()
             {
-                new Item(){Sku = 'A', Price = 50, specialOffer = new SpecialOffer(){Amount = 3, Price = 130}},
-                new Item(){Sku = 'B', Price = 30, specialOffer = new SpecialOffer(){Amount = 2, Price = 45}},
-                new Item(){Sku = 'C', Price = 20, specialOffer = null},
-                new Item(){Sku = 'D', Price = 15, specialOffer = null}
+                new Item(){Sku = 'A', Price = 50, SpecialOffer = new SpecialOffer(){Amount = 3, Price = 130}},
+                new Item(){Sku = 'B', Price = 30, SpecialOffer = new SpecialOffer(){Amount = 2, Price = 45}},
+                new Item(){Sku = 'C', Price = 20, SpecialOffer = null},
+                new Item(){Sku = 'D', Price = 15, SpecialOffer = null}
             };
         }
 
@@ -26,6 +26,11 @@ namespace BeFaster.App.Solutions.CHK
             {
                 return -1;
             }
+
+            List<ProductAmountOrdered> orderedProductAmounts = GetOrderedProductAmounts(skus);
+            List<SpecialOffer> specialOffersInOrder = 
+
+
             return -1;
         }
 
@@ -46,5 +51,39 @@ namespace BeFaster.App.Solutions.CHK
             }
             return true;
         }
+
+        public static List<ProductAmountOrdered> GetOrderedProductAmounts(string skus)
+        {
+            List<ProductAmountOrdered> orderedProductAmounts = new List<ProductAmountOrdered>();
+            foreach(var item in ItemsList)
+            {
+                int amount = skus.Where(c => c == item.Sku).ToArray().Length;
+                if(amount > 0)
+                {
+                    orderedProductAmounts.Add(new ProductAmountOrdered() { Sku = item.Sku, Amount = amount, Price = item.Price });
+                }
+            }
+            return orderedProductAmounts;
+        }
+
+        public static List<SpecialOffer> GetSpecialOffersInOrder (List<ProductAmountOrdered> productAmounts)
+        {
+            List<SpecialOffer> specialOffers = new List<SpecialOffer>();
+            foreach(var productAmount in productAmounts)
+            {
+                SpecialOffer specialOffer = ItemsList.Where(x => x.Sku == productAmount.Sku && x.SpecialOffer != null).FirstOrDefault()?.SpecialOffer;
+                if(specialOffer != null)
+                {
+                    int numberOfOffers = productAmount.Amount / specialOffer.Amount;
+                    for(int i=0; i< numberOfOffers; i++)
+                    {
+                        specialOffers.Add(specialOffer);
+                        productAmount.Amount -= specialOffer.Amount;
+                    }
+                }
+            }
+            return specialOffers;
+        }
     }
 }
+
