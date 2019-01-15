@@ -10,6 +10,6 @@ namespace BeFaster.App.Solutions.CHK
     {
         public char Sku;
         public int Price;
-        public SpecialOffer specialOffer;
+        public SpecialOffer SpecialOffer;
     }
 }
