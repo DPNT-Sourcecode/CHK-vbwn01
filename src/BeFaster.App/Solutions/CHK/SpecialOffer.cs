@@ -20,5 +20,3 @@ namespace BeFaster.App.Solutions.CHK
         FreeItem
     }
 }
-
-
