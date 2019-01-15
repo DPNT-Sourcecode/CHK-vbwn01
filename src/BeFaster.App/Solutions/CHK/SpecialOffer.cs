@@ -10,5 +10,13 @@ namespace BeFaster.App.Solutions.CHK
     {
         public int Amount;
         public int Price;
+        public SpecialOfferType Type;
+    }
+
+    public enum SpecialOfferType
+    {
+        Discount,
+        FreeItem
     }
 }
+
