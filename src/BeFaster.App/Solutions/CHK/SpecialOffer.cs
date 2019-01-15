@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace BeFaster.App.Solutions.CHK
 {
-    public class Item
+    public class SpecialOffer
     {
-        public char Sku;
+        public int Amount;
         public int Price;
-        public SpecialOffer specialOffer;
     }
 }
-
