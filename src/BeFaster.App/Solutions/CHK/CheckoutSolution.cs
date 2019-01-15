@@ -158,7 +158,6 @@ namespace BeFaster.App.Solutions.CHK
                 }
             }
             //GroupOfItems
-
             int sum = productAmounts.Where(x => GroupOfItems.Contains(x.Sku)).Sum(s => s.Amount);
             int numberOfDiscounts = sum / NumberOfGroupItemsToBuy;
             for (int i = 0; i < numberOfDiscounts; i++)
@@ -183,5 +182,6 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 
